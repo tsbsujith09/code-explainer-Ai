@@ -1,9 +1,9 @@
-from dotenv import load_dotenv
-load_dotenv()
-
 import streamlit as st
 from groq import Groq
 import os
+
+# ---- Groq Client ----
+client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
 # ---- Page Config ----
 st.set_page_config(
@@ -11,9 +11,6 @@ st.set_page_config(
     page_icon="🧠",
     layout="centered"
 )
-
-# ---- Groq Client ----
-client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
 # ---- UI ----
 st.title("🧠 Code Explainer AI")
@@ -50,7 +47,7 @@ Code:
 Be beginner-friendly, clear, and structured.
 """
             response = client.chat.completions.create(
-                model="llama3-8b-8192",
+                model="llama-3.3-70b-versatile",
                 messages=[
                     {"role": "user", "content": prompt}
                 ]
